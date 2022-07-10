@@ -1,0 +1,20 @@
+nav {
+    background-color: #83BCFF;
+}
+
+nav * {
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    list-style: none;
+    font-weight: bolder;
+    font-size: larger;
+    padding: 20px;
+}
+
+nav input {
+    padding: 0;
+}

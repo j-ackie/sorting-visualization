@@ -1,0 +1,13 @@
+#visualization {
+    display: flex;
+    padding: 100px;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.element {
+    flex-grow: 1;
+    outline: 1px solid black;
+    background-color: violet;
+    margin-left: 1px;
+}
