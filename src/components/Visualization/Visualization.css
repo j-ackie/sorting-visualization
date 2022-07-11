@@ -3,6 +3,7 @@
     padding: 100px;
     flex-direction: row;
     align-items: flex-end;
+    height: 500px;
 }
 
 .element {

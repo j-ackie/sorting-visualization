@@ -16,5 +16,10 @@ nav li {
 }
 
 nav input {
-    padding: 0;
+    vertical-align: middle;
+}
+
+.navbar-options:hover {
+    cursor: pointer;
+    color: thistle;
 }

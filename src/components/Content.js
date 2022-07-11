@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
-import Navbar from "./Navbar/Navbar"
-import Visualization from "./Visualization/Visualization"
+import { useEffect, useState } from 'react';
+import Navbar from "./Navbar/Navbar";
+import Visualization from "./Visualization/Visualization";
+import bubbleSort from '../sorting-algorithms/bubble-sort';
 
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -22,6 +23,11 @@ export default function Content() {
         setArrayLength(event.target.value);
     };
 
+    const handleClick = (event) => {
+        console.log(event); 
+        setArray(bubbleSort(array));
+    }
+
     useEffect(() => {
         setArray(generateArray(arrayLength));
     }, [arrayLength]);
@@ -30,7 +36,8 @@ export default function Content() {
         <div id="content">
             <Navbar
                 arrayLength={ arrayLength } 
-                onChange={ handleChange } 
+                onChange={ handleChange }
+                onClick={ handleClick }
             />
             <Visualization array={ array }/>
             <h1>{ arrayLength }</h1>
