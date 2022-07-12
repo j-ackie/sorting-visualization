@@ -1,6 +1,6 @@
 import "./Navbar.css"
 
-export default function Navbar({ arrayLength, onChange, onClick }) {
+export default function Navbar({ arrayLength, onChange, onClick, onSortChange }) {
     const sorting_algorithms = ["Bubble Sort", "Selection Sort", "Insertion Sort"];
 
     let navbar_options = [];
@@ -29,7 +29,22 @@ export default function Navbar({ arrayLength, onChange, onClick }) {
                         onChange={ onChange }
                     />
                 </li>
+                <li>
+                    Change sort speed
+                    <input
+                        type="range"
+                        min="0"
+                        max="100"
+                    />
+                </li>
                 { navbar_options }
+                <li id="sort-by-option">
+                    Sort by
+                    <select onChange={ onSortChange }>
+                        <option>ascending</option>
+                        <option>descending</option>
+                    </select>
+                </li>
             </ul>
         </nav>
     )

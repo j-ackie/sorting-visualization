@@ -1,12 +1,19 @@
 import "./Visualization.css"
 
-export default function Visualization({ array }) {
+export default function Visualization({ array, selectedElement, isSorted }) {
     let elements = [];
     for (let i = 0; i < array.length; i++) {
         let height = (500 / array.length) * array[i];
         let style = {"height": height}
+        let className = "element";
+        if (isSorted && i <= selectedElement) {
+            className += " sorted";
+        }
+        else if (i === selectedElement) {
+            className += " selected";
+        }
         elements.push(
-            <div className="element" style={ style }>
+            <div className={ className } style={ style }>
                 {/* { array[i] } */}
             </div>
         );

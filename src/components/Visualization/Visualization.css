@@ -1,14 +1,24 @@
 #visualization {
     display: flex;
-    padding: 100px;
+    border: solid 1px black;
     flex-direction: row;
     align-items: flex-end;
+    margin: 50px;
+    padding: 50px;
     height: 500px;
 }
 
 .element {
     flex-grow: 1;
     outline: 1px solid black;
-    background-color: violet;
+    background-color: lightgrey;
     margin-left: 1px;
+}
+
+.sorted {
+    background-color: green;
+}
+
+.selected {
+    background-color: red;
 }

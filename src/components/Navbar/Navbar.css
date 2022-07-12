@@ -5,6 +5,7 @@ nav {
 nav * {
     margin: 0;
     padding: 0;
+    vertical-align: middle;
 }
 
 nav li {
@@ -15,11 +16,11 @@ nav li {
     padding: 20px;
 }
 
-nav input {
-    vertical-align: middle;
-}
-
 .navbar-options:hover {
     cursor: pointer;
     color: thistle;
+}
+
+#sort-by-option {
+    float: right;
 }

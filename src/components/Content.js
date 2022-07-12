@@ -18,18 +18,45 @@ function generateArray(arrayLength) {
 export default function Content() {
     const [arrayLength, setArrayLength] = useState(250);
     const [array, setArray] = useState(generateArray(arrayLength));
+    const [selectedElement, setSelectedElement] = useState(null);
+    const [isSorted, setIsSorted] = useState(false);
+    const [sortedOrder, setSortedOrder] = useState(null);
+    const [isAscending, setIsAscending] = useState(true);
 
     const handleChange = (event) => {
         setArrayLength(event.target.value);
     };
 
     const handleClick = (event) => {
-        console.log(event); 
-        setArray(bubbleSort(array));
+        if (!isSorted) {
+            if (isAscending) {
+                const gt = (x, y) => {
+                    return x > y;
+                };
+                bubbleSort(array, setArray, setSelectedElement, setIsSorted, gt, 0.5);
+            }
+            else {
+                const gt = (x, y) => {
+                    return x < y;
+                };
+                bubbleSort(array, setArray, setSelectedElement, setIsSorted, gt, 0.5);
+            }
+        }
+    };
+
+    const handleSortChange = (event) => {
+        if (event.target.value === "ascending") {
+            setIsAscending(true);
+        }
+        else {
+            setIsAscending(false);
+        }
     }
 
     useEffect(() => {
         setArray(generateArray(arrayLength));
+        setSelectedElement(null);
+        setIsSorted(false);
     }, [arrayLength]);
 
     return (
@@ -38,9 +65,13 @@ export default function Content() {
                 arrayLength={ arrayLength } 
                 onChange={ handleChange }
                 onClick={ handleClick }
+                onSortChange={ handleSortChange }
             />
-            <Visualization array={ array }/>
-            <h1>{ arrayLength }</h1>
+            <Visualization 
+                array={ array }
+                selectedElement={ selectedElement }
+                isSorted= { isSorted }
+            />
         </div>
     )
 }
