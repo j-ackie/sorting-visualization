@@ -1,29 +1,56 @@
-export default function bubbleSort(arr, setArray, setSelectedElement, setIsSorted, gt, time_ms) {
-    const delay = time_ms => new Promise((resolve) => setTimeout(resolve, time_ms));
-
-    const sort = async() => {
-        for (let i = 0; i < arr.length; i++) {
-            for (let j = 0; j < arr.length - i - 1; j++) {
-                setSelectedElement(j + 1);
-                if (gt(arr[j], arr[j + 1])) {
-                    let temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                    setArray([...arr]);
+export default class BubbleSort {
+    constructor(arr, setArray, setSelectedElement, setIsSorted, time_ms) {
+        this.arr = arr;
+        this.setArray = setArray;
+        this.setSelectedElement = setSelectedElement;
+        this.setIsSorted = setIsSorted;
+        this.gt = null;
+        this.time_ms = time_ms;
+        this.isSorting = false;
+        this.delay = time_ms => new Promise((resolve) => {
+            setTimeout(resolve, time_ms);
+        });
+    }
+    
+    async beginSort() {
+        this.isSorting = true;
+        for (let i = 0; i < this.arr.length; i++) {
+            for (let j = 0; j < this.arr.length - i - 1; j++) {
+                if (!this.isSorting) {
+                    this.setSelectedElement(null);
+                    return;
                 }
-                await delay(time_ms);
+                this.setSelectedElement(j + 1);
+                if (this.gt(this.arr[j], this.arr[j + 1])) {
+                    let temp = this.arr[j];
+                    this.arr[j] = this.arr[j + 1];
+                    this.arr[j + 1] = temp;
+                    this.setArray([...this.arr]);
+                }
+                await this.delay(this.time_ms);
             }
         }
-        setSelectedElement(null);
-        setIsSorted(true);
+        this.setIsSorted(true);
     }
 
-    const sortCompleted = async() => {
-        for (let i = 0; i < arr.length; i++) {
-            setSelectedElement(i);
-            await delay(10);
+    async sortCompleted() {
+        for (let i = 0; i < this.arr.length; i++) {
+            this.setSelectedElement(i);
+            await this.delay(10);
+        }
+        this.endSort();
+    }
+
+    endSort() {
+        this.isSorting = false;
+    }
+
+    sort(isGreaterThan) {
+        if (!this.isSorting) {
+            this.gt = isGreaterThan;
+            this.beginSort().then(() => {
+                this.sortCompleted();
+            });
         }
     }
-
-    sort().then(sortCompleted);
 }
