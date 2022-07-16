@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navbar from "./Navbar/Navbar";
 import Visualization from "./Visualization/Visualization";
-import BubbleSort from '../sorting-algorithms/bubble-sort';
+import Sort from '../sorting-algorithms/bubble-sort';
 // import SelectionSort from "../sorting-algorithms/selection-sort";
 
 function randomInt(min, max) {
@@ -16,13 +16,22 @@ function generateArray(arrayLength) {
     return array;
 }
 
-function algorithmToClass(algorithmName, array, setArray, setSelectedElement, setIsSorted) {
-    let algorithmToClass = new Map([
-        ["Bubble Sort", () => new BubbleSort(array, setArray, setSelectedElement, setIsSorted, 4)],
+function nameToFunction(algorithmName, sortingAlgorithms) {
+    let nameToFunction = new Map([
+        ["Bubble Sort", (isGreaterThan) => sortingAlgorithms.bubbleSort(isGreaterThan)],
         ["Selection Sort", () => console.log("hey")]
     ]);
 
-    return algorithmToClass.get(algorithmName);
+    return nameToFunction.get(algorithmName);
+}
+
+function greaterThan(isAscending) {
+    if (isAscending) {
+        return () => (x, y) => {return x > y};
+    }
+    else {
+        return () => (x, y) => {return x < y};
+    }
 }
 
 export default function Content() {
@@ -30,75 +39,58 @@ export default function Content() {
     const [array, setArray] = useState(generateArray(arrayLength));
     const [selectedElement, setSelectedElement] = useState(null);
     const [isSorted, setIsSorted] = useState(false);
+    const [sortingAlgorithms, setSortingAlgorithms] = useState(new Sort(array, setArray, setSelectedElement, setIsSorted, 4));
+
     const [isSortedAscending, setIsSortedAscending] = useState(null);
-    const [isSortable, setIsSortable] = useState(true);
     const [isSorting, setIsSorting] = useState(false);
     const [isAscending, setIsAscending] = useState(true);
     const [isGreaterThan, setIsGreaterThan] = useState(() => (x, y) => {return x > y});
-    const [sortingAlgorithm, setSortingAlgorithm] = useState(algorithmToClass("Bubble Sort", array, setArray, setSelectedElement, setIsSorted))
+    
 
 
     const handleChange = (event) => {
         setArrayLength(event.target.value);
+        setSelectedElement(null);
+        sortingAlgorithms.endSort();
     };
 
     const handleClick = (event) => {
-        console.log(isSorting);
-        console.log(event.target.textContent)
-        if (!isSorting && isSortable) {
-            if (event.target.textContent === "Bubble Sort") {
-                setSortingAlgorithm(new BubbleSort(array, setArray, setSelectedElement, setIsSorted, 4));
-            }
-            setIsSortedAscending(isAscending);
+        console.log(isSorting)
+        if (!isSorting) {
+            console.log("begin sorting")
+            setIsSorted(false);
             setIsSorting(true);
-            sortingAlgorithm.sort(isGreaterThan);
+            setIsSortedAscending(isAscending);
+            let sortingAlgorithm = nameToFunction(event.target.textContent, sortingAlgorithms);
+            sortingAlgorithm(isGreaterThan);
         }
     };
 
-    const handleSortChange = (event) => {
-        if (event.target.value === "ascending") {
-            setIsAscending(true);
-        }
-        else {
-            setIsAscending(false);
-        }
-    }
-
     useEffect(() => {
-        if (isAscending) {
-            setIsGreaterThan(() => (x, y) => {return x > y});
+        console.log("#0 triggered")
+        setIsGreaterThan(greaterThan(isAscending));
+        if (isSorted) {
+            setIsSorting(false);
         }
-        else {
-            setIsGreaterThan(() => (x, y) => {return x < y});
-        }
-
-        if (!isSorted || (isSorted && isAscending === !isSortedAscending)) {
-            setIsSortable(true);
+        if (isSorted && isAscending === !isSortedAscending) {
             setIsSorted(false);
-            setIsSorting(false);
-        }
-        else {
-            setIsSortable(false);
-            setIsSorting(false);
         }
         setSelectedElement(null);
-    }, [isSorted, isSortedAscending, isAscending])
+    }, [isSorted, isSortedAscending, isAscending]);
 
     useEffect(() => {
+        console.log("#1 triggered");
         setArray(generateArray(arrayLength));
         setIsSortedAscending(null);
         setSelectedElement(null);
         setIsSorted(false);
-        sortingAlgorithm.endSort();
-    }, [arrayLength]);
+        setIsSorting(false);
+        sortingAlgorithms.endSort();
+    }, [sortingAlgorithms, arrayLength]);
 
     useEffect(() => {
-        sortingAlgorithm.arr = array;
-    }, [sortingAlgorithm, array])
-
-    // useEffect(() => {
-    //     setIsSorting(true);
-    // }, [isAscending, sortingAlgorithm])
+        sortingAlgorithms.arr = array;
+    }, [sortingAlgorithms, array])
 
     return (
         <div id="content">
@@ -106,13 +98,16 @@ export default function Content() {
                 arrayLength={ arrayLength } 
                 onChange={ handleChange }
                 onClick={ handleClick }
-                onSortChange={ handleSortChange }
+                onSortChange={ (event) => {setIsAscending(event.target.value === "ascending")} }
             />
             <Visualization 
                 array={ array }
                 selectedElement={ selectedElement }
-                isSorted= { isSorted }
+                isSorted={ isSorted }
             />
+            <button onClick={() => {sortingAlgorithms.endSort()}}>
+                Hey
+            </button>
         </div>
     )
 }
