@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navbar from "./Navbar/Navbar";
 import Visualization from "./Visualization/Visualization";
-import Sort from '../sorting-algorithms/bubble-sort';
+import Sort from '../sorting-algorithms/Sort';
 // import SelectionSort from "../sorting-algorithms/selection-sort";
 
 function randomInt(min, max) {
@@ -19,7 +19,12 @@ function generateArray(arrayLength) {
 function nameToFunction(algorithmName, sortingAlgorithms) {
     let nameToFunction = new Map([
         ["Bubble Sort", (isGreaterThan) => sortingAlgorithms.bubbleSort(isGreaterThan)],
-        ["Selection Sort", () => console.log("hey")]
+        ["Selection Sort", (isGreaterThan) => sortingAlgorithms.selectionSort(isGreaterThan)],
+        ["Insertion Sort", (isGreaterThan) => sortingAlgorithms.insertionSort(isGreaterThan)],
+        ["Merge Sort", (isGreaterThan) => sortingAlgorithms.mergeSort(isGreaterThan)],
+        ["Quick Sort", (isGreaterThan) => sortingAlgorithms.quickSort(isGreaterThan)],
+        ["Heap Sort", (isGreaterThan) => sortingAlgorithms.heapSort(isGreaterThan)],
+        ["Bogo Sort", (isGreaterThan) => sortingAlgorithms.bogoSort(isGreaterThan)]
     ]);
 
     return nameToFunction.get(algorithmName);
@@ -68,11 +73,13 @@ export default function Content() {
 
     useEffect(() => {
         console.log("#0 triggered")
+        console.log(isSorting)
         setIsGreaterThan(greaterThan(isAscending));
         if (isSorted) {
             setIsSorting(false);
         }
-        if (isSorted && isAscending === !isSortedAscending) {
+        if (!isSorting && isSorted && isAscending === !isSortedAscending) {
+            console.log("hey");
             setIsSorted(false);
         }
         setSelectedElement(null);

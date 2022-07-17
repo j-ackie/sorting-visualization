@@ -1,7 +1,7 @@
 import "./Navbar.css"
 
 export default function Navbar({ arrayLength, onChange, onClick, onSortChange }) {
-    const sorting_algorithms = ["Bubble Sort", "Selection Sort", "Insertion Sort"];
+    const sorting_algorithms = ["Bubble Sort", "Selection Sort", "Insertion Sort", "Merge Sort", "Quick Sort", "Heap Sort", "Bogo Sort"];
 
     let navbar_options = [];
     for (let i = 0; i < sorting_algorithms.length; i++) {
