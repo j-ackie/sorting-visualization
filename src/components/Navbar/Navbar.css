@@ -1,5 +1,6 @@
 nav {
-    background-color: grey;
+    background-color: #83c5be;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
 }
 
 nav * {
@@ -13,7 +14,24 @@ nav li {
     list-style: none;
     font-weight: bolder;
     font-size: larger;
-    padding: 20px;
+    padding: 15px;
+}
+
+nav button {
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    font-weight: bolder;
+    font-size: large;
+    padding: 5px;
+}
+
+#start {
+    background-color: lightgreen;
+}
+
+#stop {
+    background-color: red;
 }
 
 .navbar-options:hover {

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Navbar from "./Navbar/Navbar";
 import Visualization from "./Visualization/Visualization";
 import Sort from '../sorting-algorithms/Sort';
-// import SelectionSort from "../sorting-algorithms/selection-sort";
 
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -17,7 +16,7 @@ function generateArray(arrayLength) {
 }
 
 function nameToFunction(algorithmName, sortingAlgorithms) {
-    let nameToFunction = new Map([
+    const nameToFunction = new Map([
         ["Bubble Sort", (isGreaterThan) => sortingAlgorithms.bubbleSort(isGreaterThan)],
         ["Selection Sort", (isGreaterThan) => sortingAlgorithms.selectionSort(isGreaterThan)],
         ["Insertion Sort", (isGreaterThan) => sortingAlgorithms.insertionSort(isGreaterThan)],
@@ -45,30 +44,43 @@ export default function Content() {
     const [selectedElement, setSelectedElement] = useState(null);
     const [isSorted, setIsSorted] = useState(false);
     const [sortingAlgorithms, setSortingAlgorithms] = useState(new Sort(array, setArray, setSelectedElement, setIsSorted, 4));
-
     const [isSortedAscending, setIsSortedAscending] = useState(null);
     const [isSorting, setIsSorting] = useState(false);
     const [isAscending, setIsAscending] = useState(true);
     const [isGreaterThan, setIsGreaterThan] = useState(() => (x, y) => {return x > y});
+
+    const [delay, setDelay] = useState(0);
+    const [selectedAlgorithm, setSelectedAlgorithm] = useState("Bubble Sort");
     
-
-
     const handleChange = (event) => {
         setArrayLength(event.target.value);
         setSelectedElement(null);
         sortingAlgorithms.endSort();
     };
 
-    const handleClick = (event) => {
-        console.log(isSorting)
+    const handleStartClick = () => {
         if (!isSorting) {
             console.log("begin sorting")
             setIsSorted(false);
             setIsSorting(true);
             setIsSortedAscending(isAscending);
-            let sortingAlgorithm = nameToFunction(event.target.textContent, sortingAlgorithms);
+            let sortingAlgorithm = nameToFunction(selectedAlgorithm, sortingAlgorithms);
             sortingAlgorithm(isGreaterThan);
         }
+    };
+
+    const stopSort = () => {
+        setIsSortedAscending(null);
+        setSelectedElement(null);
+        setIsSorted(false);
+        setIsSorting(false);
+        sortingAlgorithms.endSort();
+    };
+
+    const setNewArray = () => {
+        console.log("Setting new array");
+        setArray(generateArray(arrayLength));
+        stopSort();
     };
 
     useEffect(() => {
@@ -87,24 +99,29 @@ export default function Content() {
 
     useEffect(() => {
         console.log("#1 triggered");
-        setArray(generateArray(arrayLength));
-        setIsSortedAscending(null);
-        setSelectedElement(null);
-        setIsSorted(false);
-        setIsSorting(false);
-        sortingAlgorithms.endSort();
+        setNewArray();
     }, [sortingAlgorithms, arrayLength]);
 
     useEffect(() => {
+        console.log("#2 triggered");
         sortingAlgorithms.arr = array;
-    }, [sortingAlgorithms, array])
+    }, [array]);
+
+    useEffect(() => {
+        sortingAlgorithms.time_ms = delay + 4;
+    }, [delay]);
 
     return (
         <div id="content">
             <Navbar
                 arrayLength={ arrayLength } 
+                delay={ delay }
                 onChange={ handleChange }
-                onClick={ handleClick }
+                onStartClick={ handleStartClick }
+                onStopClick={ stopSort }
+                randomize={ setNewArray }
+                onSpeedChange={ (event) => {setDelay(parseInt(event.target.value))} }
+                onAlgorithmChange={ (event) => {setSelectedAlgorithm(event.target.value)} }
                 onSortChange={ (event) => {setIsAscending(event.target.value === "ascending")} }
             />
             <Visualization 
@@ -112,9 +129,6 @@ export default function Content() {
                 selectedElement={ selectedElement }
                 isSorted={ isSorted }
             />
-            <button onClick={() => {sortingAlgorithms.endSort()}}>
-                Hey
-            </button>
         </div>
     )
 }

@@ -1,12 +1,10 @@
-function swap(arr, i, j) {
-    let temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-}
+import swap from "../helpers/helpers"
 
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+// Add handling for stopping sort and preventing sortCompleted from running
 
 export default class Sort {
     constructor(arr, setArray, setSelectedElement, setIsSorted, time_ms) {
@@ -23,6 +21,7 @@ export default class Sort {
     }
 
     bubbleSort(isGreaterThan) {
+        console.log(this.time_ms)
         const beginSort = async() => {
             this.isSorting = true;
             for (let i = 0; i < this.arr.length; i++) {
@@ -195,6 +194,7 @@ export default class Sort {
             await beginSort(left, mid);
             await beginSort(mid + 1, right);
             await merge(left, mid, right);
+
         }
 
         const sort = () => {
@@ -318,11 +318,16 @@ export default class Sort {
     bogoSort(isGreaterThan) {
         const shuffle = async() => {
             for (let i = 0; i < this.arr.length; i++) {
+                if (!this.isSorting) {
+                    this.setSelectedElement(null);
+                    return;
+                }
                 let r = randomInt(0, this.arr.length - 1);
                 swap(this.arr, i, r);
                 this.setSelectedElement(r);
-                await this.delay(this.time_ms);
+
             }
+            await this.delay(this.time_ms);
         }
 
         const isSorted = () => {
@@ -337,6 +342,10 @@ export default class Sort {
         const beginSort = async() => {
             this.isSorting = true;
             while (!isSorted()) {
+                if (!this.isSorting) {
+                    this.setSelectedElement(null);
+                    return;
+                }
                 await shuffle();
             }
             this.setIsSorted(true);
@@ -354,6 +363,9 @@ export default class Sort {
     }
 
     async sortCompleted() {
+        if (!this.isSorting) {
+            return;
+        }
         for (let i = 0; i < this.arr.length; i++) {
             this.setSelectedElement(i);
             await this.delay(4);
