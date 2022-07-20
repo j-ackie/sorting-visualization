@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navbar from "./Navbar/Navbar";
 import Visualization from "./Visualization/Visualization";
+import Footer from "./Footer/Footer"
 import Sort from '../sorting-algorithms/Sort';
 
 function randomInt(min, max) {
@@ -116,6 +117,7 @@ export default function Content() {
             <Navbar
                 arrayLength={ arrayLength } 
                 delay={ delay }
+                isSorting={ isSorting }
                 onChange={ handleChange }
                 onStartClick={ handleStartClick }
                 onStopClick={ stopSort }
@@ -129,6 +131,7 @@ export default function Content() {
                 selectedElement={ selectedElement }
                 isSorted={ isSorted }
             />
+            <Footer />
         </div>
     )
 }

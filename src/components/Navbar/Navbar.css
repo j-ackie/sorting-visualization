@@ -19,11 +19,16 @@ nav li {
 
 nav button {
     cursor: pointer;
-    border: none;
+    border: 1px black solid;
+    border-radius: 25px;
     font-family: inherit;
     font-weight: bolder;
     font-size: large;
-    padding: 5px;
+    padding: 8px;
+}
+
+nav button:hover {
+    filter: brightness(80%);
 }
 
 #start {

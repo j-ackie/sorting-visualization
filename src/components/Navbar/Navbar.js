@@ -1,6 +1,6 @@
 import "./Navbar.css"
 
-export default function Navbar({ arrayLength, delay, onChange, onStartClick, onStopClick, randomize, onSpeedChange, onAlgorithmChange, onSortChange }) {
+export default function Navbar({ arrayLength, delay, isSorting, onChange, onStartClick, onStopClick, randomize, onSpeedChange, onAlgorithmChange, onSortChange }) {
     const sorting_algorithms = new Map([
         ["O(n^2)", ["Bubble Sort", "Selection Sort", "Insertion Sort"]],
         ["O(log n)", ["Merge Sort", "Quick Sort", "Heap Sort"]],
@@ -8,10 +8,10 @@ export default function Navbar({ arrayLength, delay, onChange, onStartClick, onS
     ]);
 
     let options = [];
-    let time_complexities = sorting_algorithms.keys();
-    for (const time_complexity of time_complexities) {
+    let timeComplexities = sorting_algorithms.keys();
+    for (const timeComplexity of timeComplexities) {
         let algorithms = [];
-        for (const algorithm of sorting_algorithms.get(time_complexity)) {
+        for (const algorithm of sorting_algorithms.get(timeComplexity)) {
             algorithms.push(
                 <option>
                     { algorithm }
@@ -19,10 +19,32 @@ export default function Navbar({ arrayLength, delay, onChange, onStartClick, onS
             );
         }
         options.push(
-            <optgroup label={ time_complexity }>
+            <optgroup label={ timeComplexity }>
                 { algorithms }
             </optgroup>
         );
+    }
+
+    let startStopButton;
+    if (!isSorting) {
+        startStopButton = (
+            <button 
+                id="start"
+                onClick={ onStartClick }
+            >
+                Start
+            </button>
+        )
+    }
+    else {
+        startStopButton = (
+            <button
+                id="stop"
+                onClick={ onStopClick }
+            >
+                Stop
+            </button>
+        )
     }
 
     return (
@@ -58,20 +80,7 @@ export default function Navbar({ arrayLength, delay, onChange, onStartClick, onS
                     </select>
                 </li>
                 <li>
-                    <button 
-                        id="start"
-                        onClick={ onStartClick }
-                    >
-                        Start
-                    </button>
-                </li>
-                <li>
-                    <button 
-                        id="stop"
-                        onClick={ onStopClick }
-                    >
-                        Stop
-                    </button>
+                    { startStopButton }
                 </li>
                 <li>
                     <button onClick={ randomize }>Randomize</button>
