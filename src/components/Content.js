@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Navbar from "./Navbar/Navbar";
 import Visualization from "./Visualization/Visualization";
-import Footer from "./Footer/Footer"
 import Sort from '../sorting-algorithms/Sort';
 import { generateUnorderedArray } from '../helpers/helpers';
 
@@ -42,6 +41,7 @@ export default function Content() {
 
     const [delay, setDelay] = useState(0);
     const [selectedAlgorithm, setSelectedAlgorithm] = useState("Bubble Sort");
+    const [isSoundOn, setIsSoundOn] = useState(true);
     
     const handleChange = (event) => {
         setArrayLength(event.target.value);
@@ -76,7 +76,7 @@ export default function Content() {
 
     useEffect(() => {
         // console.log("#0 triggered")
-        // console.log(isSorting)
+        console.log(isSorting, isSorted);
         setIsGreaterThan(greaterThan(isAscending));
         if (isSorted) {
             setIsSorting(false);
@@ -102,6 +102,10 @@ export default function Content() {
         sortingAlgorithms.time_ms = delay + 4;
     }, [delay]);
 
+    useEffect(() => {
+        sortingAlgorithms.isSoundOn = isSoundOn;
+    }, [isSoundOn]);
+
     return (
         <div id="content">
             <Navbar
@@ -115,6 +119,8 @@ export default function Content() {
                 onSpeedChange={ (event) => {setDelay(parseInt(event.target.value))} }
                 onAlgorithmChange={ (event) => {setSelectedAlgorithm(event.target.value)} }
                 onSortChange={ (event) => {setIsAscending(event.target.value === "ascending")} }
+                handleSoundButtonClick={ () => {setIsSoundOn(!isSoundOn)} }
+                isSoundOn={ isSoundOn }
             />
             <Visualization 
                 array={ array }

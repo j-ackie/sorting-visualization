@@ -5,14 +5,14 @@ export default class Sort {
     constructor(arr, setArray, setSelectedElement, setIsSorted, time_ms) {
         this.arr = arr;
         this.setArray = setArray;
-        // this.setSelectedElement = setSelectedElement;
         this.setIsSorted = setIsSorted;
         this.time_ms = time_ms;
         this.isSorting = false;
         this.abort = false;
+        this.isSoundOn = true;
         this.setSelectedElement = (index) => {
             setSelectedElement(index);
-            if (index != null) {
+            if (index != null && this.isSoundOn) {
                 beep(this.arr[index]);
             }
         };
@@ -38,7 +38,6 @@ export default class Sort {
                     await this.delay(this.time_ms);
                 }
             }
-            this.setIsSorted(true);
         }
 
         const sort = () => {
@@ -73,7 +72,6 @@ export default class Sort {
                     this.setArray([...this.arr]);
                 }
             }
-            this.setIsSorted(true);
         }
 
         const sort = () => {
@@ -107,7 +105,6 @@ export default class Sort {
                 }
                 this.arr[j + 1] = key;
             }
-            this.setIsSorted(true);
         }
 
         const sort = () => {
@@ -201,7 +198,6 @@ export default class Sort {
             if (!this.isSorting) {
                 this.isSorting = true;
                 beginSort(0, this.arr.length - 1).then(() => {
-                    this.setIsSorted(true);
                     this.sortCompleted();
                 });
             }
@@ -249,7 +245,6 @@ export default class Sort {
             if (!this.isSorting) {
                 this.isSorting = true;
                 beginSort(0, this.arr.length - 1).then(() => {
-                    this.setIsSorted(true);
                     this.sortCompleted();
                 });
             }
@@ -307,7 +302,6 @@ export default class Sort {
         const sort = () => {
             this.isSorting = true;
             beginSort().then(() => {
-                this.setIsSorted(true);
                 this.sortCompleted();
             })
         }
@@ -366,6 +360,7 @@ export default class Sort {
         if (!this.isSorting) {
             return;
         }
+        this.setIsSorted(true);
         for (let i = 0; i < this.arr.length; i++) {
             this.setSelectedElement(i);
             await this.delay(10);

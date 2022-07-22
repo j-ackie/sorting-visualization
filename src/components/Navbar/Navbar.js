@@ -1,6 +1,8 @@
 import "./Navbar.css"
+import soundOn from "./icons/sound-on.svg";
+import soundOff from "./icons/sound-off.svg"
 
-export default function Navbar({ arrayLength, delay, isSorting, onChange, onStartClick, onStopClick, randomize, onSpeedChange, onAlgorithmChange, onSortChange }) {
+export default function Navbar(props) {
     const sorting_algorithms = new Map([
         ["O(n^2)", ["Bubble Sort", "Selection Sort", "Insertion Sort"]],
         ["O(log n)", ["Merge Sort", "Quick Sort", "Heap Sort"]],
@@ -26,11 +28,11 @@ export default function Navbar({ arrayLength, delay, isSorting, onChange, onStar
     }
 
     let startStopButton;
-    if (!isSorting) {
+    if (!props.isSorting) {
         startStopButton = (
             <button 
                 id="start"
-                onClick={ onStartClick }
+                onClick={ props.onStartClick }
             >
                 Start
             </button>
@@ -40,11 +42,19 @@ export default function Navbar({ arrayLength, delay, isSorting, onChange, onStar
         startStopButton = (
             <button
                 id="stop"
-                onClick={ onStopClick }
+                onClick={ props.onStopClick }
             >
                 Stop
             </button>
         )
+    }
+
+    let soundButton;
+    if (props.isSoundOn) {
+        soundButton = soundOn;
+    }
+    else {
+        soundButton = soundOff;
     }
 
     return (
@@ -59,8 +69,8 @@ export default function Navbar({ arrayLength, delay, isSorting, onChange, onStar
                         type="range"
                         min="4"
                         max="500"
-                        value={ arrayLength }
-                        onChange={ onChange }
+                        value={ props.arrayLength }
+                        onChange={ props.onChange }
                     />
                 </li>
                 <li>
@@ -69,13 +79,13 @@ export default function Navbar({ arrayLength, delay, isSorting, onChange, onStar
                         type="range"
                         min="0"
                         max="100"
-                        value={ delay }
-                        onChange={ onSpeedChange }
+                        value={ props.delay }
+                        onChange={ props.onSpeedChange }
                     />
                 </li>
                 <li className="right-align-option">
                     Sorting Algorithm:
-                    <select onChange={ onAlgorithmChange }>
+                    <select onChange={ props.onAlgorithmChange }>
                         { options }
                     </select>
                 </li>
@@ -83,14 +93,17 @@ export default function Navbar({ arrayLength, delay, isSorting, onChange, onStar
                     { startStopButton }
                 </li>
                 <li >
-                    <button onClick={ randomize }>Randomize</button>
+                    <button onClick={ props.randomize }>Randomize</button>
                 </li>
                 <li id="sort-by-option">
                     Sort by:
-                    <select onChange={ onSortChange }>
+                    <select onChange={ props.onSortChange }>
                         <option>ascending</option>
                         <option>descending</option>
                     </select>
+                </li>
+                <li>
+                    <img onClick={ props.handleSoundButtonClick } src={ soundButton }/>
                 </li>
             </ul>
         </nav>

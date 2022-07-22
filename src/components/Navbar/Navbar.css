@@ -40,6 +40,11 @@ nav button:hover {
     filter: brightness(80%);
 }
 
+nav img:hover {
+    cursor: pointer;
+    opacity: 30%;
+}
+
 #start {
     background-color: lightgreen;
 }
