@@ -1,9 +1,25 @@
 const CONTENT_HEIGHT = 625;
+const audioContext = new AudioContext();
 
 export default function swap(arr, i, j) {
     let temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp;
+}
+
+export function beep(value) {
+    let oscillator = new OscillatorNode(audioContext);
+    let gain = new GainNode(audioContext);
+
+    oscillator.type = "square";
+    oscillator.frequency.value = value;
+    gain.gain.value = 0.005;
+    oscillator.connect(gain).connect(audioContext.destination);
+    oscillator.start()
+
+    setTimeout(() => {
+        oscillator.stop()
+    }, 50);
 }
 
 export function randomInt(min, max) {

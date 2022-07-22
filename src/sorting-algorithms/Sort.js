@@ -1,27 +1,27 @@
-import swap from "../helpers/helpers"
+import swap, { beep, randomInt } from "../helpers/helpers"
 
-function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-// Add handling for stopping sort and preventing sortCompleted from running
 
 export default class Sort {
     constructor(arr, setArray, setSelectedElement, setIsSorted, time_ms) {
         this.arr = arr;
         this.setArray = setArray;
-        this.setSelectedElement = setSelectedElement;
+        // this.setSelectedElement = setSelectedElement;
         this.setIsSorted = setIsSorted;
         this.time_ms = time_ms;
         this.isSorting = false;
         this.abort = false;
+        this.setSelectedElement = (index) => {
+            setSelectedElement(index);
+            if (index != null) {
+                beep(this.arr[index]);
+            }
+        };
         this.delay = time_ms => new Promise((resolve) => {
             setTimeout(resolve, time_ms);
         });
     }
 
     bubbleSort(isGreaterThan) {
-        console.log(this.time_ms)
         const beginSort = async() => {
             this.isSorting = true;
             for (let i = 0; i < this.arr.length; i++) {
@@ -368,7 +368,7 @@ export default class Sort {
         }
         for (let i = 0; i < this.arr.length; i++) {
             this.setSelectedElement(i);
-            await this.delay(4);
+            await this.delay(10);
         }
         this.endSort();
     }
