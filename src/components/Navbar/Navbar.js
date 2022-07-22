@@ -73,16 +73,16 @@ export default function Navbar({ arrayLength, delay, isSorting, onChange, onStar
                         onChange={ onSpeedChange }
                     />
                 </li>
-                <li>
+                <li className="right-align-option">
                     Sorting Algorithm:
                     <select onChange={ onAlgorithmChange }>
                         { options }
                     </select>
                 </li>
-                <li>
+                <li >
                     { startStopButton }
                 </li>
-                <li>
+                <li >
                     <button onClick={ randomize }>Randomize</button>
                 </li>
                 <li id="sort-by-option">

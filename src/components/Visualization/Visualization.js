@@ -3,7 +3,7 @@ import "./Visualization.css"
 export default function Visualization({ array, selectedElement, isSorted }) {
     let elements = [];
     for (let i = 0; i < array.length; i++) {
-        let height = (500 / array.length) * array[i];
+        let height = array[i];
         let style = {"height": height}
         let className = "element";
         if (isSorted && i <= selectedElement) {
@@ -13,9 +13,7 @@ export default function Visualization({ array, selectedElement, isSorted }) {
             className += " selected";
         }
         elements.push(
-            <div className={ className } style={ style }>
-                {/* { array[i] } */}
-            </div>
+            <div className={ className } style={ style } />
         );
     }
     return (

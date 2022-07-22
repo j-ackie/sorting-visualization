@@ -1,11 +1,11 @@
 #visualization {
+    box-shadow: 0 0 10px #aaa;
+    min-height: 625px;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     margin: 50px;
     padding: 50px;
-    height: 500px;
-    border: solid 1px black;
 }
 
 .element {

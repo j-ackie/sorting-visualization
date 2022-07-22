@@ -3,18 +3,8 @@ import Navbar from "./Navbar/Navbar";
 import Visualization from "./Visualization/Visualization";
 import Footer from "./Footer/Footer"
 import Sort from '../sorting-algorithms/Sort';
+import { generateUnorderedArray } from '../helpers/helpers';
 
-function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-function generateArray(arrayLength) {
-    let array = [];
-    for (let i = 0; i < arrayLength; i++) {
-        array.push(randomInt(1, arrayLength));
-    }
-    return array;
-}
 
 function nameToFunction(algorithmName, sortingAlgorithms) {
     const nameToFunction = new Map([
@@ -41,7 +31,7 @@ function greaterThan(isAscending) {
 
 export default function Content() {
     const [arrayLength, setArrayLength] = useState(250);
-    const [array, setArray] = useState(generateArray(arrayLength));
+    const [array, setArray] = useState(generateUnorderedArray(arrayLength));
     const [selectedElement, setSelectedElement] = useState(null);
     const [isSorted, setIsSorted] = useState(false);
     const [sortingAlgorithms, setSortingAlgorithms] = useState(new Sort(array, setArray, setSelectedElement, setIsSorted, 4));
@@ -61,7 +51,7 @@ export default function Content() {
 
     const handleStartClick = () => {
         if (!isSorting) {
-            console.log("begin sorting")
+            // console.log("begin sorting")
             setIsSorted(false);
             setIsSorting(true);
             setIsSortedAscending(isAscending);
@@ -79,32 +69,32 @@ export default function Content() {
     };
 
     const setNewArray = () => {
-        console.log("Setting new array");
-        setArray(generateArray(arrayLength));
+        // console.log("Setting new array");
+        setArray(generateUnorderedArray(arrayLength));
         stopSort();
     };
 
     useEffect(() => {
-        console.log("#0 triggered")
-        console.log(isSorting)
+        // console.log("#0 triggered")
+        // console.log(isSorting)
         setIsGreaterThan(greaterThan(isAscending));
         if (isSorted) {
             setIsSorting(false);
         }
         if (!isSorting && isSorted && isAscending === !isSortedAscending) {
-            console.log("hey");
+            // console.log("hey");
             setIsSorted(false);
         }
         setSelectedElement(null);
     }, [isSorted, isSortedAscending, isAscending]);
 
     useEffect(() => {
-        console.log("#1 triggered");
+        // console.log("#1 triggered");
         setNewArray();
     }, [sortingAlgorithms, arrayLength]);
 
     useEffect(() => {
-        console.log("#2 triggered");
+        // console.log("#2 triggered");
         sortingAlgorithms.arr = array;
     }, [array]);
 
@@ -131,7 +121,7 @@ export default function Content() {
                 selectedElement={ selectedElement }
                 isSorted={ isSorted }
             />
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

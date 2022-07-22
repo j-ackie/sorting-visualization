@@ -6,15 +6,24 @@ nav {
 nav * {
     margin: 0;
     padding: 0;
-    vertical-align: middle;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 nav li {
-    display: inline-block;
+    display: inherit;
     list-style: none;
     font-weight: bolder;
     font-size: larger;
     padding: 15px;
+}
+
+nav input {
+    margin-left: 10px;
 }
 
 nav button {
@@ -44,6 +53,6 @@ nav button:hover {
     color: thistle;
 }
 
-#sort-by-option {
-    float: right;
+.right-align-option{
+    margin-left: auto;
 }
