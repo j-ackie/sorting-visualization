@@ -13,7 +13,7 @@ export default function Visualization({ array, selectedElement, isSorted }) {
             className += " selected";
         }
         elements.push(
-            <div className={ className } style={ style } />
+            <div key={ i } className={ className } style={ style } />
         );
     }
     return (

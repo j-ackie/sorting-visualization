@@ -1,5 +1,5 @@
 const CONTENT_HEIGHT = 625;
-const audioContext = new AudioContext();
+const AUDIO_CONTEXT = new AudioContext();
 
 export default function swap(arr, i, j) {
     let temp = arr[i];
@@ -8,13 +8,13 @@ export default function swap(arr, i, j) {
 }
 
 export function beep(value) {
-    let oscillator = new OscillatorNode(audioContext);
-    let gain = new GainNode(audioContext);
+    let oscillator = new OscillatorNode(AUDIO_CONTEXT);
+    let gain = new GainNode(AUDIO_CONTEXT);
 
     oscillator.type = "square";
     oscillator.frequency.value = value;
     gain.gain.value = 0.005;
-    oscillator.connect(gain).connect(audioContext.destination);
+    oscillator.connect(gain).connect(AUDIO_CONTEXT.destination);
     oscillator.start()
 
     setTimeout(() => {

@@ -51,7 +51,6 @@ export default function Content() {
 
     const handleStartClick = () => {
         if (!isSorting) {
-            // console.log("begin sorting")
             setIsSorted(false);
             setIsSorting(true);
             setIsSortedAscending(isAscending);
@@ -69,32 +68,26 @@ export default function Content() {
     };
 
     const setNewArray = () => {
-        // console.log("Setting new array");
         setArray(generateUnorderedArray(arrayLength));
         stopSort();
     };
 
     useEffect(() => {
-        // console.log("#0 triggered")
-        console.log(isSorting, isSorted);
         setIsGreaterThan(greaterThan(isAscending));
         if (isSorted) {
             setIsSorting(false);
         }
         if (!isSorting && isSorted && isAscending === !isSortedAscending) {
-            // console.log("hey");
             setIsSorted(false);
         }
         setSelectedElement(null);
     }, [isSorted, isSortedAscending, isAscending]);
 
     useEffect(() => {
-        // console.log("#1 triggered");
         setNewArray();
     }, [sortingAlgorithms, arrayLength]);
 
     useEffect(() => {
-        // console.log("#2 triggered");
         sortingAlgorithms.arr = array;
     }, [array]);
 
@@ -127,7 +120,6 @@ export default function Content() {
                 selectedElement={ selectedElement }
                 isSorted={ isSorted }
             />
-            {/* <Footer /> */}
         </div>
     )
 }

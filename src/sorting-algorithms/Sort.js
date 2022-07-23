@@ -318,9 +318,9 @@ export default class Sort {
                 }
                 let r = randomInt(0, this.arr.length - 1);
                 swap(this.arr, i, r);
-                this.setSelectedElement(r);
 
             }
+            beep(randomInt(0, this.arr.length - 1));
             await this.delay(this.time_ms);
         }
 

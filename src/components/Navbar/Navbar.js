@@ -15,13 +15,13 @@ export default function Navbar(props) {
         let algorithms = [];
         for (const algorithm of sorting_algorithms.get(timeComplexity)) {
             algorithms.push(
-                <option>
+                <option key={ algorithm }>
                     { algorithm }
                 </option>
             );
         }
         options.push(
-            <optgroup label={ timeComplexity }>
+            <optgroup key={ timeComplexity } label={ timeComplexity }>
                 { algorithms }
             </optgroup>
         );
@@ -103,7 +103,11 @@ export default function Navbar(props) {
                     </select>
                 </li>
                 <li>
-                    <img onClick={ props.handleSoundButtonClick } src={ soundButton }/>
+                    <img
+                        src={ soundButton }
+                        onClick={ props.handleSoundButtonClick }
+                        alt="Turn sound on/off"    
+                    />
                 </li>
             </ul>
         </nav>
