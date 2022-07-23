@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/sorting-visualization/static/css/main.1ff0822f.css",
-    "main.js": "/sorting-visualization/static/js/main.237a0311.js",
-    "static/js/787.dec4b0ce.chunk.js": "/sorting-visualization/static/js/787.dec4b0ce.chunk.js",
+    "main.css": "/sorting-visualization/static/css/main.3c5a1fe5.css",
+    "main.js": "/sorting-visualization/static/js/main.2e161efb.js",
     "index.html": "/sorting-visualization/index.html",
-    "main.1ff0822f.css.map": "/sorting-visualization/static/css/main.1ff0822f.css.map",
-    "main.237a0311.js.map": "/sorting-visualization/static/js/main.237a0311.js.map",
-    "787.dec4b0ce.chunk.js.map": "/sorting-visualization/static/js/787.dec4b0ce.chunk.js.map"
+    "static/media/sound-off.svg": "/sorting-visualization/static/media/sound-off.a072f5dff7590d04a1aae239fa85477c.svg",
+    "static/media/sound-on.svg": "/sorting-visualization/static/media/sound-on.30a49d16208102f2604c2ccf79cd1f0c.svg",
+    "main.3c5a1fe5.css.map": "/sorting-visualization/static/css/main.3c5a1fe5.css.map",
+    "main.2e161efb.js.map": "/sorting-visualization/static/js/main.2e161efb.js.map"
   },
   "entrypoints": [
-    "static/css/main.1ff0822f.css",
-    "static/js/main.237a0311.js"
+    "static/css/main.3c5a1fe5.css",
+    "static/js/main.2e161efb.js"
   ]
 }
