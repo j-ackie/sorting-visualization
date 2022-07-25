@@ -5,7 +5,7 @@ import soundOff from "./icons/sound-off.svg"
 export default function Navbar(props) {
     const sorting_algorithms = new Map([
         ["O(n^2)", ["Bubble Sort", "Selection Sort", "Insertion Sort"]],
-        ["O(log n)", ["Merge Sort", "Quick Sort", "Heap Sort"]],
+        ["O(n log n)", ["Merge Sort", "Quick Sort", "Heap Sort"]],
         ["O((n+1)!)", ["Bogo Sort"]]
     ]);
 

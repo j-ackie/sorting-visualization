@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# Sorting Visualization
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Gif of merge sort](https://i.imgur.com/umhmgKr.gif)
 
-## Available Scripts
+## About the Project
 
-In the project directory, you can run:
+Inspired by Timo Bingmann's [YouTube video](https://www.youtube.com/watch?v=kPRA0W1kECga) on the "visualization and 'audibilization'" of sorting algorithms, this project aims to replicate exactly that and also add an interactive component to it in the form of a web application. I also undertook this project to gain more experience with something I was not too familiar with before - sorting algorithms - and visually understand the advantages of certain sorting algorithms over others.
 
-### `npm start`
+This sorting visualization was made with React, JavaScript, and CSS. Here's the [link](https://j-ackie.github.io/sorting-visualization/) to it.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Notable Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Slider to change size of array and generate an array of integers in random order
+- Slider to change sorting speed
+- Dropdown list to select which sorting algorithm to use
+- Dropdown list to select whether to sort by ascending or descending
+- Beeping sound played when an element is accessed; its frequency is based on its height
 
-### `npm test`
+### Sorting Algorithms Used
+- O(n^2)
+    - Bubble Sort
+    - Selection Sort
+    - Insertion Sort
+- O(n log n)
+    - Merge Sort
+    - Quick Sort
+    - Heap Sort
+- O((n+1)!)
+    - Bogo Sort
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Next Steps
+- Allowing users to input their own arrays and sorting based off that
+- Adding more sorting algorithms
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## References
+- Timo Bingmann's ["15 Sorting Algorithms in 6 Minutes"](https://www.youtube.com/watch?v=kPRA0W1kECga)
+- GeeksforGeeks [list of sorting algorithms](https://www.geeksforgeeks.org/sorting-algorithms/)
