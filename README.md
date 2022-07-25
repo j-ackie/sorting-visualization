@@ -1,6 +1,6 @@
 # Sorting Visualization
 
-![Gif of merge sort](https://i.imgur.com/umhmgKr.gif)
+![Gif of merge sort](https://i.imgur.com/WF84deo.gif)
 
 ## About the Project
 
